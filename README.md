@@ -5,7 +5,7 @@ An orchestration-first, advisory, auto-capable development workflow for Claude C
 ## Install
 
 ```
-/plugin marketplace add ./vibe-flow
+/plugin marketplace add dtk369/vibe-flow
 /plugin install vibe-flow
 /reload-plugins
 ```
