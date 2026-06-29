@@ -105,6 +105,19 @@ test('adr allocates A0001 (proposed, request set), then A0002', (t) => {
   assert.match(a2.json.id, /^A0002-/);
 });
 
+test('adopt: as-built ADRs under request:baseline index cleanly and never become a request', (t) => {
+  const P = project(t);
+  const a = P.json(['adr', '--request', 'baseline', '--title', 'as-built module layout']);
+  assert.equal(a.status, 0);
+  assert.match(a.json.id, /^A0001-/);
+  setTopStatus(a.json.path, 'accepted'); // adopt edits the staged ADR in place
+  const idx = P.json(['sync']);
+  assert.equal(idx.status, 0);
+  assert.match(read(path.join(P.dir, 'docs', 'adrs', 'INDEX.md')), /baseline/, 'baseline ADR appears in the ADR index');
+  assert.equal(P.json(['validate']).json.ok, true, 'baseline ADR validates clean');
+  assert.equal(P.json(['status']).json.requests, 0, 'a baseline ADR never creates a routed request');
+});
+
 // ------------------------------------------------------- idempotency (no data loss)
 
 test('plan is idempotent and never clobbers a written body', (t) => {

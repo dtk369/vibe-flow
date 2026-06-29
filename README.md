@@ -24,6 +24,16 @@ Each phase has a command and writes one durable, indexed markdown artifact (fron
 
 `/vibe-flow:status` reads the artifacts and tells you the current phase and the next command to run.
 
+## Adopt into an existing codebase
+
+`/vibe-flow:adopt [lite|full|ultra]` bootstraps vibe-flow into a repo that already exists. It surveys the code, records the **as-built architecture** as accepted ADRs (under a `baseline` pseudo-request — visible in the ADR index, so every future request's clarifier/architect/planner honors it instead of silently re-deciding it), conducts **`/ponytail-audit`** over the whole repo, and seeds a tracked `ponytail-audit cleanup` request from the findings. It is read-only over your source — it records reality and suggests work, it never rewrites code.
+
+```
+/vibe-flow:adopt full
+```
+
+Then review the baseline ADRs and run `/vibe-flow:plan` (or `/vibe-flow:auto "ponytail-audit cleanup"`) to act on the audit.
+
 ## Run modes
 
 **Interactive** — one command per phase. Human gates run on the main thread: decisions are surfaced with `AskUserQuestion` in `decide`, and you review the plan before implementing.
@@ -49,10 +59,10 @@ Effort scales subagent fan-out. Every fan-out is bounded.
 vibe-flow cannot programmatically call another plugin's command, so each phase prompt **tells the model which tool to invoke**, with the standard degradation phrasing: *"If `<tool>` is available, do X; otherwise skip and note it was skipped."* A conducted tool that errors or times out is recorded as a finding, never a silent pass.
 
 - **Reliable** (assume present): `/simplify`, `/run`, `/code-review`, `/security-review`.
-- **Optional** (detect at runtime; skip + note if absent): `ponytail` (implement + its `/ponytail-review` over-engineering lens), `/frontend-design` (UI files).
+- **Optional** (detect at runtime; skip + note if absent): `ponytail` (implement + its `/ponytail-review` over-engineering lens in review + `/ponytail-audit` in adopt), `/frontend-design` (UI files).
 - **Reference** (NOT invokable — bundled digests under `reference/`): APoSD (`reference/aposd.md`) and TigerStyle (`reference/tigerstyle.md`), cited during decide and plan.
 
-Where tools are conducted: **implement** → ponytail + `/simplify` (+ `/frontend-design` for UI files); **review** → `/run` + `/code-review` + `/security-review` + the ponytail over-engineering lens (`/ponytail-review` if installed, else the mindset inline).
+Where tools are conducted: **adopt** → `/ponytail-audit` (whole-repo over-engineering audit); **implement** → ponytail + `/simplify` (+ `/frontend-design` for UI files); **review** → `/run` + `/code-review` + `/security-review` + the ponytail over-engineering lens (`/ponytail-review` if installed, else the mindset inline).
 
 ## Persistence layout
 
