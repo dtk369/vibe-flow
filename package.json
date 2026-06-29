@@ -1,0 +1,9 @@
+{
+  "name": "vibe-flow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tooling and tests for the vibe-flow Claude Code plugin. The plugin itself ships zero runtime dependencies.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

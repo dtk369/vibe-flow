@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/bin/vibe.mjs\" status --project-dir \"${CLAUDE_PROJECT_DIR}\" --hook session ; exit 0",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/bin/vibe.mjs\" sync --project-dir \"${CLAUDE_PROJECT_DIR}\" ; exit 0",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+# editor / runtime artifacts
+.vscode/
+.DS_Store
+
+# node
+node_modules/
+
+# local review working note (not part of the published plugin)
+REVIEW.md

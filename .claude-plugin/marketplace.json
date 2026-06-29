@@ -1,0 +1,21 @@
+{
+  "name": "vibe-flow",
+  "owner": {
+    "name": "icento",
+    "email": "ky.dangthe@icento.com.vn"
+  },
+  "description": "An orchestration-first, advisory, auto-capable development workflow for Claude Code: it sequences best-of-breed tools across five phases (understand, decide, plan, implement, review) and never blocks edits.",
+  "plugins": [
+    {
+      "name": "vibe-flow",
+      "source": "./",
+      "description": "Orchestration-first, advisory workflow that conducts other skills by instruction with graceful degradation, scales fan-out by effort (lite/full/ultra), and runs all five phases unattended in auto mode.",
+      "version": "0.1.0",
+      "keywords": [
+        "workflow",
+        "orchestration",
+        "auto"
+      ]
+    }
+  ]
+}

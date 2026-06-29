@@ -1,0 +1,19 @@
+{
+  "name": "vibe-flow",
+  "version": "0.1.0",
+  "description": "An orchestration-first, advisory, auto-capable development workflow for Claude Code that sequences best-of-breed tools instead of reimplementing them, and never blocks edits.",
+  "author": {
+    "name": "icento",
+    "email": "ky.dangthe@icento.com.vn"
+  },
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "orchestration",
+    "adr",
+    "plan",
+    "auto",
+    "advisory"
+  ],
+  "hooks": "./hooks/hooks.json"
+}
